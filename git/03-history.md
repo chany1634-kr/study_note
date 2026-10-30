@@ -6,7 +6,25 @@
 git log                      # 커밋 히스토리 전체 보기
 git log --pretty=oneline     # 한 줄씩 보기
 git log --pretty=oneline --all   # 모든 브랜치의 커밋 보기
+git log --pretty=oneline --all --graph   # 브랜치 흐름을 그림으로 보기
 ```
+
+- `--all`은 대시 **2개**. 여러 브랜치 커밋을 한 번에 볼 수 있지만, 섞여 나와서 읽기 어렵다.
+- `--graph`를 붙이면 브랜치가 갈라지고 합쳐지는 모양을 선으로 그려 준다.
+
+```
+*   c3d4e5f Merge branch 'premium'     ← 머지 커밋 (두 선이 다시 만나는 곳)
+|\
+| * b2c3d4e Add premium feature        ← premium 브랜치 커밋
+* | a1b2c3d Fix price                  ← master 브랜치 커밋
+|/
+* 9f8e7d6 Initial commit               ← 갈라지기 전 공통 조상 (base)
+```
+
+- `*` = 커밋 하나
+- 선이 **갈라지는 곳** = 브랜치가 나뉜 지점
+- 선이 **다시 합쳐지는 곳** = merge한 지점 (머지 커밋)
+- alias로 쓰면 `git hist --all --graph`
 
 ## 커밋 변경 사항 확인
 

@@ -64,6 +64,22 @@ git reflog                  # HEAD가 거쳐 간 기록에서 커밋 ID 찾기
 git reset --hard [커밋 ID]  # 그 커밋으로 다시 이동
 ```
 
+- 커밋 ID를 몰라도 괜찮다. `git reflog`에 HEAD가 지금까지 가리켰던 커밋이 전부 나온다.
+- 진짜 삭제는 reflog 보관 기간이 지난 뒤 Git이 `git gc`로 알아서 정리한다.
+
+### switch와 돌아오는 법 비교
+
+| | 움직이는 것 | 비유 | 돌아오는 법 |
+|---|---|---|---|
+| `switch` / `checkout` | HEAD만 | 구경 가기 (브랜치는 제자리) | `git switch master` |
+| `reset` | HEAD + 브랜치 | 브랜치를 끌고 감 | `git reflog`로 ID 찾아서 다시 reset |
+
+## push하면 커밋이 완전히 삭제되나?
+
+- 아니다. push는 삭제와 관계없다.
+- 이미 push한 커밋을 reset하면 → 로컬이 서버보다 뒤처져서 push가 거절된다.
+- `git push --force`로 억지로 올려도 팀원 컴퓨터엔 남아 있고 협업이 꼬여서 거의 금지다.
+
 ## 사용 규칙
 
 - **push 전** (내 로컬에만 있는 커밋) → reset 사용 가능
@@ -71,3 +87,10 @@ git reset --hard [커밋 ID]  # 그 커밋으로 다시 이동
 - ⚠️ 적는 커밋 ID가 반대다.
   - `reset` → **이동할(남길)** 커밋 ID
   - `revert` → **취소할** 커밋 ID
+
+## 한 줄 요약
+
+- 이동 → `switch`
+- **커밋했지만 아직 push 안 한** 커밋 취소 → `reset` (soft / mixed / hard)
+- push한 커밋 취소 → `revert`
+- 커밋도 안 한 수정 사항 되돌리기 → `git restore [파일 이름]`
