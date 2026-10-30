@@ -25,6 +25,30 @@ Git에는 3가지 영역(working tree, staging area, repository)이 있고, 옵�
 - `--mixed`: 커밋 + add 취소. 변경 내용은 파일에 남아 있다. 옵션 없이 `git reset`만 치면 이게 실행된다.
 - `--hard`: 파일 내용까지 그 커밋 시점으로 되돌린다.
 
+> 쉽게 기억하기: `--hard`만 **working directory를 초기화**하고, `--mixed`와 `--soft`는 **working directory를 건드리지 않는다.**
+
+### 활용: 불필요한 커밋 정리하기 (push 전)
+
+ver1을 커밋하고, 이어서 개선한 ver2도 커밋했다. 그런데 ver1 커밋은 기록에 남길 필요가 없다.
+
+```
+A - ver1 - ver2   ← HEAD
+```
+
+```bash
+git reset --soft [A 커밋 ID]    # ver1 이전 커밋으로 이동
+git commit -m "Add ver2"
+```
+
+```
+A - ver2'         ← HEAD
+```
+
+- ⚠️ ver1의 ID가 아니라 **ver1 바로 이전 커밋(A)**의 ID를 적는다. (`HEAD~2`라고 써도 된다)
+- `--soft`라서 ver1 + ver2의 변경이 add된 상태로 남아 있다. 그래서 `git add` 없이 바로 commit해도 된다.
+- 결과적으로 **두 커밋을 하나로 합친 것**이다. ver2가 ver1을 고친 버전이라면 최종 파일은 ver2 내용이 된다.
+- `--hard`를 쓰면 ver2 작업까지 파일에서 사라지니 이 상황엔 쓰면 안 된다.
+
 ### --hard 사용 시 주의
 
 - **커밋하지 않은 수정 사항**과 **add만 한 내용**은 복구할 수 없다.

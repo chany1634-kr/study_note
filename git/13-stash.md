@@ -42,8 +42,16 @@ git stash list                # 저장된 목록 보기
 
 git stash apply stash@{1}     # 특정 번호 꺼내기
 git stash drop stash@{1}      # 특정 번호 지우기
-git stash drop                # 번호 없으면 가장 최근(stash@{0}) 지우기
+git stash pop stash@{1}       # 특정 번호 꺼내고 지우기
 ```
+
+| 명령어 | 하는 일 | 번호 생략하면 |
+|---|---|---|
+| `git stash` | 작업 내용 임시 저장 | - |
+| `git stash list` | 저장된 목록 조회 | - |
+| `git stash apply [번호]` | 적용 (목록에 남음) | 가장 최근 것 |
+| `git stash drop [번호]` | 삭제 | 가장 최근 것 |
+| `git stash pop [번호]` | 적용 + 삭제 | 가장 최근 것 |
 
 - 번호는 `git stash list`로 먼저 확인하고 쓴다.
 - 하나를 지우면 뒤 번호가 당겨진다. (stash@{2} → stash@{1})
