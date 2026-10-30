@@ -67,4 +67,7 @@ git reset --hard [커밋 ID]  # 그 커밋으로 다시 이동
 ## 사용 규칙
 
 - **push 전** (내 로컬에만 있는 커밋) → reset 사용 가능
-- **push 후** (팀원과 공유된 커밋) → reset 대신 `git revert` 사용
+- **push 후** (팀원과 공유된 커밋) → reset 대신 `git revert` 사용 (→ `11-blame-revert.md`)
+- ⚠️ 적는 커밋 ID가 반대다.
+  - `reset` → **이동할(남길)** 커밋 ID
+  - `revert` → **취소할** 커밋 ID

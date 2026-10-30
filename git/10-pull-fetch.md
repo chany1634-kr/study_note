@@ -27,6 +27,9 @@ git push        # 이제 push 가능
 | `git merge` | 가져온 내용을 내 브랜치에 합친다 |
 | `git pull` | 위 두 개를 **한 번에** 한다 (자동으로 합침) |
 
+- `git fetch`만 치면 **upstream**(tracking으로 연결된 리모트, 보통 origin)에서 최신 커밋을 가져온다.
+- upstream = 08번 노트의 `-u`(`--set-upstream`)로 짝지어 둔 리모트 브랜치. clone했으면 자동으로 연결돼 있다.
+
 ## fetch는 언제 쓰나?
 
 pull은 가져오자마자 자동으로 합친다. **합치기 전에 먼저 확인하고 싶으면** fetch를 쓴다.
