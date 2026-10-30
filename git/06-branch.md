@@ -7,6 +7,7 @@
   - 예: 무료 버전 / 유료 버전, 배포용 / 개발용 / 테스트용
 - 레포지토리를 만들고 첫 커밋을 하면 기본 브랜치가 자동으로 생긴다.
   - 요즘은 `main`, 예전에는 `master`라는 이름을 주로 썼다.
+- 커밋은 **지금 내가 있는 브랜치**(HEAD가 가리키는 브랜치)에 쌓인다.
 
 ## 브랜치 명령어
 
@@ -40,12 +41,19 @@ git checkout -b premium
   - 파일 되돌리기 → `git restore`
 - 즉 `checkout = switch + restore`
 
-## switch vs reset
+## switch vs reset vs revert
 
 | | 움직이는 것 | 용도 |
 |---|---|---|
 | `switch` / `checkout` | HEAD만 | 브랜치 이동, 과거 커밋 구경 |
-| `reset` | HEAD + 브랜치 | 커밋 취소 |
+| `reset` | HEAD + 브랜치 | 커밋 취소 (기록을 지움) |
+| `revert` | 아무것도 안 움직임 | 커밋 취소 (취소하는 **새 커밋**을 만듦) |
+
+목적별로 정리하면
+
+- 이동 → `switch` (또는 `checkout`)
+- 내 컴퓨터에만 있는 커밋 취소 (push 전) → `reset`
+- 이미 공유된 커밋 취소 (push 후) → `revert`
 
 ## 참고: cat
 
