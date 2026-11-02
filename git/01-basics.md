@@ -32,8 +32,11 @@ git config --global user.name "이름"    # 보통 이렇게 한 번만 설정�
 ```bash
 git add [파일 이름]     # 특정 파일만 올리기
 git add [폴더 이름]     # 해당 폴더 안의 수정된 파일 전부 올리기
-git add .              # working directory의 수정된 파일 전부 올리기
+git add .              # 지금 폴더(.)와 하위 폴더의 수정된 파일 전부 올리기
 ```
+
+- `.`은 Git 기호가 아니라 터미널에서 **"지금 내가 있는 폴더"**라는 뜻이다. (`..`은 한 단계 바깥 폴더)
+- `git add .`은 원치 않는 파일(예: `.DS_Store`)까지 올릴 수 있으니 add 후 `git status`로 확인한다. → `15-gitignore.md`
 
 ```bash
 git reset [파일 이름]            # staging area에서 다시 내리기
@@ -41,6 +44,42 @@ git restore --staged [파일 이름]  # 같은 기능 (최신 방식)
 ```
 
 - 내려도 파일 수정 내용은 그대로 남아 있다. staging area에서만 빠진다.
+
+## 3-1. 수정한 파일 되돌리기 (수정 내용 버리기)
+
+아직 커밋 안 한 수정을 **없던 일로** 만들고, 마지막 커밋(또는 add) 상태로 돌린다.
+
+```bash
+git restore [파일 이름]          # 최신 방식
+git checkout -- [파일 이름]      # 예전 방식 (같은 기능)
+```
+
+예시: `hello.py`를 이것저것 고쳤는데 망해서 원래대로 돌리고 싶을 때
+
+```
+커밋된 내용:  print("hello")
+지금 파일:    print("hello")
+              print("이상하게 고친 코드")   ← 커밋 안 한 수정
+```
+
+`git restore hello.py` 후
+
+```
+되돌린 후:    print("hello")
+```
+
+- ⚠️ 버린 수정 내용은 **복구할 수 없다.** 커밋한 적이 없어서 `git reflog`에도 남지 않는다.
+- `git status`에 나오는 `(use "git restore <file>..." to discard changes ...)` 안내가 이 명령어다. **discard = 버리다.**
+- 예전에는 `git checkout`이 브랜치 이동과 파일 되돌리기를 둘 다 해서, `git checkout test`(이동)와 `git checkout -- test`(되돌리기)를 헷갈려 작업을 날리는 일이 있었다. 그래서 `switch`와 `restore`로 나뉘었다. → `06-branch.md`
+
+### 헷갈리는 restore 두 개
+
+| 명령어 | 하는 일 | 수정 내용 |
+|---|---|---|
+| `git restore --staged [파일]` | staging area에서 **내리기만** | 남아 있음 ✅ |
+| `git restore [파일]` | 수정한 내용 **버리기** | 사라짐 ⚠️ |
+
+- `--staged`가 붙으면 안전, 안 붙으면 위험이라고 기억하자.
 
 ## 4. 상태 확인
 
